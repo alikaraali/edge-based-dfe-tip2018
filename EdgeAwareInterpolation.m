@@ -1,15 +1,16 @@
 function denseDMap = EdgeAwareInterpolation(Iref, sparseDMap, edgeMap)
-
+ %%
+ %   @input: Iref, Original RGB Image at scale [0,1]
+ %           sparseDMap, Estimated sparse defocus blur map  
+ %           edgeMap, Estimated reliable edge map
+ %   @output: denseDMap, Full defocus blur map
+ %   written by Ali Karaali, alixkaraali@gmail.com
 
     [H,W] = size(edgeMap);
     I = sparseDMap;
     mask = double(edgeMap); 
 
-
     sigma_s = min(H,W)/8;
-    % if sigma_s > 70
-    %     sigma_s = 70;
-    % end
 
     sigma_r = 3.75;
     niter = 5;
