@@ -1,5 +1,12 @@
 function [psf, spsf_filtered, edge_map] = blur_estimate_our(im)
-
+   %%
+   %   @input: im, colorful RGB image at scale [0,1]
+   %   @output: psf, estmated defocus blur map
+   %            spsf_filtered, sparse defocus blur map  
+   %            edge_map, estimated reliable edge map
+   % 
+   %   written by Ali Karaali, alixkaraali@gmail.com
+   
     % important parameters
     sigmas = 1:0.5:5;
     std1 = 1;
@@ -9,7 +16,6 @@ function [psf, spsf_filtered, edge_map] = blur_estimate_our(im)
     if size(im,3) == 3
         gI_im = rgb2ycbcr(im);
         gI = gI_im(:,:,1).^2.4;
-        %gI = rgb2gray(im);
     else
         gI = im;
     end
@@ -44,8 +50,6 @@ function [psf, spsf_filtered, edge_map] = blur_estimate_our(im)
         [rowno, colno] = ind2sub([H,W], ind(ii)); % edge point
         % at which scales this edge point appears ?
         ep = reshape(edges(rowno, colno, :), 1, 9);
-        %[~, b] = find(ep == 1);
-        %sig_i = b(1) + sum(ep)-1;
         
         d = diff(ep);
         b = find(d == -1);
@@ -85,14 +89,14 @@ function [psf, spsf_filtered, edge_map] = blur_estimate_our(im)
         edgepoint_mag1 = sqrt(gimx1_edgepoint.^2 + gimy1_edgepoint.^2);
         edgepoint_mag2 = sqrt(gimx2_edgepoint.^2 + gimy2_edgepoint.^2);
         
-        
         R = edgepoint_mag1 ./ edgepoint_mag2;
-      %%
+ 
         edge_point_psf = sqrt((R.^2 * std1^2 - std2^2)/ (1 - R.^2));
         spsf(ind(jj)) = edge_point_psf;
         
     end    
 
+    % Get rid of outliers 
     spsf(spsf ~= real(spsf)) = 0;
     spsf(spsf>5) = 5;
     
@@ -170,6 +174,6 @@ function [psf, spsf_filtered, edge_map] = blur_estimate_our(im)
         spsf_filtered(indices) = A \ b;
 
     end
-    
+    % Propagate the blur amount from edge location to whole image
     psf = EdgeAwareInterpolation(im, spsf_filtered, edge_map); 
 end
