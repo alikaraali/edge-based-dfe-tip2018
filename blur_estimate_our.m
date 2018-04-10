@@ -1,11 +1,11 @@
 function [psf, spsf_filtered, edge_map] = blur_estimate_our(im)
-   %%
-   %   @input: im, colorful RGB image at scale [0,1]
-   %   @output: psf, estmated defocus blur map
-   %            spsf_filtered, sparse defocus blur map  
-   %            edge_map, estimated reliable edge map
-   % 
-   %   written by Ali Karaali, alixkaraali@gmail.com
+%%
+%   @input: im, Colorful RGB image at scale [0,1]
+%   @output: psf, Estmated defocus blur map
+%            spsf_filtered, Sparse defocus blur map  
+%            edge_map, Estimated reliable edge map
+% 
+%   written by Ali Karaali, alixkaraali@gmail.com
    
     % important parameters
     sigmas = 1:0.5:5;
