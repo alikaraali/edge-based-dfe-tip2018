@@ -15,4 +15,4 @@ which is provided in ('Non-parametric blur map regression for depth of field ext
 In order to reach the dataset, you should contact with the author of this paper. 
 The code here includes just 3 sample images from this dataset.
 
-Please also report any bug to alixkaraali@gmail.com
+Please also report any bug to alixkaraali[at_sign]gmail[dot_sign]com
