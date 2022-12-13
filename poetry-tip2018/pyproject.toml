@@ -10,6 +10,7 @@ packages = [{include = "poetry_tip2018"}]
 python = "^3.9"
 numpy = "^1.23.5"
 opencv-python = "^4.6.0.66"
+pandas = "^1.5.2"
 
 
 [build-system]
