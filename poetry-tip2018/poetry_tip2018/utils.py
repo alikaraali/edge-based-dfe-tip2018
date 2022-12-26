@@ -3,6 +3,14 @@ import cv2
 
 class Image:
     def __init__(self, image_path=None):
+    '''
+    This class is designed to be as an opencv
+    wrapper. 
+
+    @arguments: 
+
+    @return: 
+    '''
         if image_path != None:
             self.image = cv2.imread(image_path)
             self.height = 0
